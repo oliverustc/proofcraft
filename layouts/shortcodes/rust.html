@@ -1,0 +1,94 @@
+{{- $id := printf "rp-%d" now.UnixNano -}}
+{{- $code := trim .Inner "\n" -}}
+
+<div class="hextra-code-block hx:relative hx:mt-6 hx:first:mt-0 hx:group/code" id="{{ $id }}-wrap">
+  {{/* Code display — mirrors hextra's own codeblock component */}}
+  <div>{{ highlight $code "rust" "" }}</div>
+
+  {{/* Run button — same visual style as hextra copy button */}}
+  <div class="hx:flex hx:gap-1 hx:absolute hx:m-[11px] hx:right-0 hx:top-0">
+    <button
+      id="{{ $id }}-btn"
+      onclick="hextraRunRust('{{ $id }}')"
+      class="hx:group/runbtn hx:cursor-pointer hx:transition-all hx:active:opacity-50
+             hx:bg-primary-700/5 hx:border hx:border-black/5
+             hx:text-gray-600 hx:hover:text-gray-900
+             hx:rounded-md hx:px-2 hx:py-1 hx:text-xs hx:font-mono
+             hx:dark:bg-primary-300/10 hx:dark:border-white/10
+             hx:dark:text-gray-400 hx:dark:hover:text-gray-50
+             hx:select-none"
+      title="Run in Rust Playground"
+    >▶ Run</button>
+  </div>
+</div>
+
+{{/* Output area — hidden until first run */}}
+<div id="{{ $id }}-out"
+     class="hx:mt-1 hx:rounded-md hx:border hx:border-black/10 hx:dark:border-white/10
+            hx:bg-gray-50 hx:dark:bg-neutral-900 hx:font-mono hx:text-sm
+            hx:overflow-x-auto hx:hidden">
+  <div id="{{ $id }}-stdout"
+       class="hx:px-4 hx:py-3 hx:whitespace-pre-wrap hx:text-gray-800 hx:dark:text-gray-200"></div>
+  <div id="{{ $id }}-stderr"
+       class="hx:px-4 hx:py-3 hx:whitespace-pre-wrap hx:text-red-600 hx:dark:text-red-400 hx:hidden
+              hx:border-t hx:border-black/10 hx:dark:border-white/10"></div>
+</div>
+
+{{/* Inject runner script once per page */}}
+{{ if not (.Page.Scratch.Get "rustPlaygroundScriptAdded") }}
+  {{ .Page.Scratch.Set "rustPlaygroundScriptAdded" true }}
+  <script>
+  async function hextraRunRust(id) {
+    const btn    = document.getElementById(id + '-btn');
+    const outWrap = document.getElementById(id + '-out');
+    const stdout = document.getElementById(id + '-stdout');
+    const stderr = document.getElementById(id + '-stderr');
+
+    // Grab code from the rendered highlight block
+    const codeEl = document.querySelector('#' + id + '-wrap pre code');
+    if (!codeEl) return;
+    const code = codeEl.innerText;
+
+    btn.disabled = true;
+    btn.textContent = '⏳';
+    outWrap.classList.remove('hx:hidden');
+    stdout.textContent = 'Running…';
+    stderr.classList.add('hx:hidden');
+    stderr.textContent = '';
+
+    try {
+      const res = await fetch('https://play.rust-lang.org/execute', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          channel: 'stable',
+          mode: 'debug',
+          edition: '2021',
+          crateType: 'bin',
+          tests: false,
+          code: code
+        })
+      });
+
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+
+      stdout.textContent = data.stdout || (data.success ? '(no output)' : '');
+      if (data.stderr && data.stderr.trim()) {
+        stderr.textContent = data.stderr;
+        stderr.classList.remove('hx:hidden');
+      }
+      if (!data.success && !data.stdout) {
+        stdout.textContent = '';
+      }
+    } catch (e) {
+      stdout.textContent = '';
+      stderr.textContent = 'Error: ' + e.message;
+      stderr.classList.remove('hx:hidden');
+    }
+
+    btn.disabled = false;
+    btn.textContent = '▶ Run';
+  }
+  </script>
+{{ end }}
