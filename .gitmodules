@@ -1,3 +1,0 @@
-[submodule "content-src"]
-	path = content-src
-	url = git@github.com:oliverustc/proofcraft-content.git
