@@ -4,3 +4,5 @@ github.com/oliverustc/proofcraft-content v0.0.0-20260531124228-30bf4b9e7a9d h1:M
 github.com/oliverustc/proofcraft-content v0.0.0-20260531124228-30bf4b9e7a9d/go.mod h1:Wi6z4MIF0wTeDYPlHHQK1tkR8PIL91FOwbr+2DE9jGk=
 github.com/oliverustc/proofcraft-content v0.0.0-20260531124411-53c102ceeb12 h1:UAzYYfH+kS3qSZuOJQg3lDX57mETZ/PC3TojH1rjTMI=
 github.com/oliverustc/proofcraft-content v0.0.0-20260531124411-53c102ceeb12/go.mod h1:Wi6z4MIF0wTeDYPlHHQK1tkR8PIL91FOwbr+2DE9jGk=
+github.com/oliverustc/proofcraft-content v0.0.0-20260531124541-85035dd8cbdb h1:faDPc0O4Ft7qHtfHZlb8oAsnALwm01w0IIIZpy+mrZE=
+github.com/oliverustc/proofcraft-content v0.0.0-20260531124541-85035dd8cbdb/go.mod h1:Wi6z4MIF0wTeDYPlHHQK1tkR8PIL91FOwbr+2DE9jGk=
