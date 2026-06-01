@@ -8,3 +8,5 @@ github.com/oliverustc/proofcraft-content v0.0.0-20260531124541-85035dd8cbdb h1:f
 github.com/oliverustc/proofcraft-content v0.0.0-20260531124541-85035dd8cbdb/go.mod h1:Wi6z4MIF0wTeDYPlHHQK1tkR8PIL91FOwbr+2DE9jGk=
 github.com/oliverustc/proofcraft-content v0.0.0-20260531130519-0f808ee5d81e h1:UlJNmIcVyqja7QBe3+UvHMwQD7XG9wf1wFMIAYZ2lOo=
 github.com/oliverustc/proofcraft-content v0.0.0-20260531130519-0f808ee5d81e/go.mod h1:Wi6z4MIF0wTeDYPlHHQK1tkR8PIL91FOwbr+2DE9jGk=
+github.com/oliverustc/proofcraft-content v0.0.0-20260601004528-cfd8d735fccd h1:6FDNevQGQfZU9Cij+yMDqh+/tNRBZaDX8U5AQqukvdI=
+github.com/oliverustc/proofcraft-content v0.0.0-20260601004528-cfd8d735fccd/go.mod h1:Wi6z4MIF0wTeDYPlHHQK1tkR8PIL91FOwbr+2DE9jGk=

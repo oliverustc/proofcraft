@@ -11,6 +11,17 @@ outputs:
     - RSS
     - JSON
 
+menu:
+  main:
+    - name: 笔记
+      pageRef: /docs
+      weight: 1
+    - name: GitHub
+      url: https://github.com/oliverustc/proofcraft-content
+      weight: 2
+      params:
+        icon: github
+
 params:
   description: "Rust · 零知识证明 · 区块链 —— 网络空间安全博士的学习笔记"
   navbar:
